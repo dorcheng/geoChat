@@ -1,11 +1,10 @@
-import { MAPBOX_ACCESS_TOKEN } from '../config';
 import { buildMarker } from './functions';
 import mapboxgl from 'mapbox-gl';
 import io from 'socket.io-client';
 
 // instantiate map
 
-mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN || MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
 
 export const map = new mapboxgl.Map({
   container: 'map-canvas',
