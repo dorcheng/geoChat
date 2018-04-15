@@ -39,7 +39,9 @@ $('form').submit(function(){
 });
 
 socket.on('new-message', function(msg){
-  $('#chatFeed').append($('<li>').text(msg));
+  $('#chatFeed').append($('<li class="own-message">').text(msg));
 });
 
-buildMarker([-74.0, 40.7]).addTo(map);
+socket.on('receive-message', function(msg){
+  $('#chatFeed').append($('<li class="other-message">').text(msg));
+});

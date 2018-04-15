@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
   socket.on('chatMessage', (msg) => {
     console.log('New Message:', msg);
     socket.emit('new-message', msg);
+    socket.broadcast.emit('receive-message', msg);
   });
 
   socket.on('disconnect', () => {
