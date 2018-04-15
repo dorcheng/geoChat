@@ -23,15 +23,15 @@ socket.on('connect', function(){
 });
 
 socket.on('new-user', function(userId){
+  console.log('New user has joined:', userId);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position){
-      console.log('Position:', position.coords);
-      buildMarker([position.coords.longitude, position.coords.latitude]).addTo(map);
+      console.log(`${userId} Position:`, position.coords);
+      buildMarker([position.coords.longitude, position.coords.latitude], userId).addTo(map);
       map.flyTo({
         center: [position.coords.longitude, position.coords.latitude]
       });
     });
-    console.log('New user has joined:', userId);
   }
 });
 
