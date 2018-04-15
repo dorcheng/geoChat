@@ -27,6 +27,9 @@ socket.on('new-user', function(userId){
     navigator.geolocation.getCurrentPosition(function(position){
       console.log('Position:', position.coords);
       buildMarker([position.coords.longitude, position.coords.latitude]).addTo(map);
+      map.flyTo({
+        center: [position.coords.longitude, position.coords.latitude]
+      });
     });
     console.log('New user has joined:', userId);
   }
