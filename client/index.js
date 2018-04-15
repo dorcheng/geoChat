@@ -1,5 +1,7 @@
 import { MAPBOX_ACCESS_TOKEN } from '../config';
+import { buildMarker } from './functions';
 import mapboxgl from 'mapbox-gl';
+import io from 'socket.io-client';
 
 // instantiate map
 
@@ -13,3 +15,31 @@ export const map = new mapboxgl.Map({
   bearing: 20,
   style: 'mapbox://styles/mapbox/dark-v9'
 });
+
+const socket = io(window.location.origin);
+
+socket.on('connect', function(){
+  console.log('I have made a persistent two-way connection to the server!');
+});
+
+socket.on('new-user', function(userId){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position){
+      console.log('Position:', position.coords);
+      buildMarker([position.coords.longitude, position.coords.latitude]).addTo(map);
+    });
+    console.log('New user has joined:', userId);
+  }
+});
+
+$('form').submit(function(){
+  socket.emit('chatMessage', $('#message').val());
+  $('#message').val('');
+  return false;
+});
+
+socket.on('new-message', function(msg){
+  $('#chatFeed').append($('<li>').text(msg));
+});
+
+buildMarker([-74.0, 40.7]).addTo(map);
