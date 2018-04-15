@@ -4,7 +4,8 @@ import io from 'socket.io-client';
 
 // instantiate map
 
-mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN || 'undefined';
+// public token
+mapboxgl.accessToken = 'pk.eyJ1IjoiZG9yY2hlbmciLCJhIjoiY2pnMTR0Z2FpNjVsNTJ4czI0NzVycnNtZCJ9.mLE8zy31_w1RyH_YaFycow';
 
 export const map = new mapboxgl.Map({
   container: 'map-canvas',
